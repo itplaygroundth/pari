@@ -19,7 +19,7 @@
         md4
       >
         <v-form ref="form">
-         <v-img :aspect-ratio="1.7" :src="imageData" contain></v-img>
+         <!-- <v-img :aspect-ratio="1.7" :src="imageData" contain></v-img> -->
            <!-- <div>
             <div class="file-upload-form">
                 Upload an image file:
@@ -29,9 +29,22 @@
                 <img class="preview" :src="imageData">
             </div>
         </div>-->
-         <v-btn color="blue"  @click="$refs.inputUpload.click()">Image</v-btn>
-          <input v-show="false" ref="inputUpload" type="file" @change="previewImage" >
+         <!-- <v-btn color="blue"  @click="$refs.inputUpload.click()">Image</v-btn>
+          <input v-show="false" ref="inputUpload" type="file" @change="previewImage" > -->
+          <div id="my-strictly-unique-vue-upload-multiple-image" style="display: flex; justify-content: center;">
+            <vue-upload-multiple-image
+              @upload-success="uploadImageSuccess"
+              @before-remove="beforeRemove"
+              @edit-image="editImage"
+              @data-change="dataChange"
+              :data-images="images"
+              idUpload="myIdUpload"
+              editUpload="myIdEdit"
+              ></vue-upload-multiple-image>
+          </div>
+          <div style="display: flex; justify-content: center;">
             <swatches v-model="itemcolor" :colors="colors" show-border inline></swatches>
+          </div>
         </v-form>
       </v-flex>
 
@@ -47,17 +60,38 @@
             v-model="name"
             label="name"
           ></v-text-field>
-        <v-checkbox
-          v-model="active"
-          label="Active"
-        ></v-checkbox>
-
-        <v-text-field
-          v-model="barcode"
-          :counter="max"
-          :rules="rules"
-          label="Barcode"
+           <v-flex d-flex>
+            <v-layout row>
+              <v-flex d-flex>
+                <v-checkbox
+                v-model="active"
+                label="Active"
+                ></v-checkbox>
+              </v-flex>
+              <v-flex d-flex>
+               <v-text-field
+          v-model="size"
+          label="Size"
         ></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          
+            <v-flex d-flex>
+            <v-layout row>
+              <v-flex d-flex>
+                 <v-img :src="require('../assets/barcode.png')" aspect-ratio="1"></v-img>
+              </v-flex>
+               <v-flex d-flex>
+              <v-text-field
+                  v-model="barcode"
+                  :counter="max"
+                  :rules="rules"
+                  label="Barcode"
+                ></v-text-field>
+               </v-flex>
+            </v-layout>
+            </v-flex>
       </v-flex>
     </v-layout>
   </v-container>
@@ -78,21 +112,23 @@
 import Swatches from 'vue-swatches'
 // Import the styles too, globally
 import 'vue-swatches/dist/vue-swatches.min.css'
+import VueUploadMultipleImage from 'vue-upload-multiple-image'
 
 export default {
   name: 'add-comp',
-  components: { Swatches },
+  components: { Swatches, VueUploadMultipleImage },
   data () {
     return {
       active: false,
       barcode: '',
       itemcolor: 'white',
-      colors: ['#FFFFFF', '#FFF9C4', '#B3E5FC', '#FCE4EC'],
+      colors: ['#FFFFFF', '#FFF9C4', '#B3E5FC', '#FCE4EC', '#CE93D8'],
       max: 13,
       code: '',
       name: '',
       croppa: {},
       imageData: '',
+      images: [],
       show: false,
       card_text: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.'
     }
@@ -136,10 +172,12 @@ export default {
     },
     save () {
       this.$store.set('additem', !this.additem)
+      this.images = []
       // console.log(this.$store.state.additem)
     },
     cancel () {
       this.$store.set('additem', !this.additem)
+      this.images = []
     },
     previewImage: function (event) {
       // Reference to the DOM input element
@@ -157,7 +195,29 @@ export default {
         // Start the reader job - read file as a data url (base64 format)
         reader.readAsDataURL(input.files[0])
       }
+    },
+    uploadImageSuccess (formData, index, fileList) {
+      console.log('data', formData, index, fileList)
+      // Upload image api
+      // axios.post('http://your-url-upload', formData).then(response => {
+      //   console.log(response)
+      // })
+    },
+    beforeRemove (index, done, fileList) {
+      console.log('index', index, fileList)
+      var r = confirm('remove image')
+      if (r === true) {
+        done()
+      } else {
+      }
+    },
+    editImage (formData, index, fileList) {
+      console.log('edit data', formData, index, fileList)
+    },
+    dataChange (data) {
+      console.log(data)
     }
+
   }
 }
 </script>

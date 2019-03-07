@@ -7,13 +7,12 @@ import App from './App'
 import router from './router'
 import VueLodash from 'vue-lodash'
 import 'vuetify/dist/vuetify.min.css'
-import Croppa from 'vue-croppa'
-import 'vue-croppa/dist/vue-croppa.css'
+import VueLazyload from 'vue-lazyload'
 
 const options = { name: 'lodash' }
 
 window.store = store
-Vue.use(Vuetify, VueLodash, Croppa, options)
+Vue.use(Vuetify, VueLodash, VueLazyload, options)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

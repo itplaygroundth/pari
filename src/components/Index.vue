@@ -22,14 +22,18 @@
       <template v-slot:extension>
         <v-tabs
           v-model="tab"
-          color="#2c3e50"
+          color="transparent"
+          fixed=tabs
+          slider-color="#F44336"
           grow
+          @change="show"
         >
-          <v-tabs-slider color="#FF4081"></v-tabs-slider>
+          <!-- <v-tabs-slider color="#FF4081"></v-tabs-slider> -->
 
           <v-tab
             v-for="item in items"
             :key="item"
+            :href="'#'+item"
           >
             {{ item }}
           </v-tab>
@@ -37,7 +41,7 @@
       </template>
     </v-toolbar>
 
-    <v-tabs-items v-model="tab">
+    <!-- <v-tabs-items v-model="tab">
       <v-tab-item
         v-for="item in items"
         :key="item"
@@ -46,7 +50,7 @@
           <v-card-text>{{ text }}</v-card-text>
         </v-card>
       </v-tab-item>
-    </v-tabs-items>
+    </v-tabs-items> -->
     <br>
     <add-comp v-show="!additem"></add-comp>
      <v-fab-transition>
@@ -79,10 +83,10 @@
       'add-comp': Add
     },
     data: () => ({
-      tab: '',
+      tab: '32-36',
       fab: '',
       items: [
-        '60-50', '50-40', '40-30', '30-20', '10'
+        '32-36', '36-40', '40-44', '44-46'
       ],
       text: '',
       cards: [
