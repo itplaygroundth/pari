@@ -24,6 +24,7 @@
           v-model="tab"
           color="transparent"
           fixed-tabs
+          grow
           slider-color="yellow"
           @change="show"
         >
