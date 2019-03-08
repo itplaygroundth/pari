@@ -9,8 +9,19 @@ import { make } from 'vuex-pathify'
 
 // setup store
 const state = {
+  users: {
+    userid: '',
+    username: '',
+    avatar: '',
+    passwd: '',
+    level: '',
+    token: ''
+  },
   additem: true,
-  name: 'World'
+  name: 'World',
+  auth: {
+    loggedIn: false
+  }
 }
 const mutations = make.mutations(state)
 

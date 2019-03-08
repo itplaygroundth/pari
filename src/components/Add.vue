@@ -58,7 +58,7 @@
           ></v-text-field>
           <v-text-field
             v-model="name"
-            label="name"
+            label="Name"
           ></v-text-field>
            <v-flex d-flex>
             <v-layout row>
@@ -92,6 +92,22 @@
                </v-flex>
             </v-layout>
             </v-flex>
+             <v-flex d-flex>
+            <v-layout row>
+              <v-flex d-flex>
+                <v-text-field
+          v-model="qty"
+          label="SKU"
+        ></v-text-field>
+              </v-flex>
+              <v-flex d-flex>
+               <v-text-field
+          v-model="price"
+          label="Price"
+        ></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-flex>
       </v-flex>
     </v-layout>
   </v-container>
@@ -121,7 +137,7 @@ export default {
     return {
       active: false,
       barcode: '',
-      itemcolor: 'white',
+      itemcolor: '#FFFFFF',
       colors: ['#FFFFFF', '#FFF9C4', '#B3E5FC', '#FCE4EC', '#CE93D8'],
       max: 13,
       code: '',

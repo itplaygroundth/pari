@@ -7,6 +7,8 @@ import App from './App'
 import router from './router'
 import VueLodash from 'vue-lodash'
 import 'vuetify/dist/vuetify.min.css'
+import 'vue-material-design-icons/styles.css'
+
 import VueLazyload from 'vue-lazyload'
 
 const options = { name: 'lodash' }

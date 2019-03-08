@@ -10,15 +10,15 @@
       <v-toolbar-title>Pari X Store</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>search</v-icon>
+      <v-strong>{{users.username}}</v-strong>
+      <v-btn  v-if="users.username"  icon>
+        <v-avatar size="36px">
+      <img
+        :src="users.avartar"
+        :alt="users.username"
+      >
+    </v-avatar>
       </v-btn>
-
-      <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-
       <template v-slot:extension>
         <v-tabs
           v-model="tab"
@@ -54,7 +54,7 @@
     <br>
     <add-comp v-show="!additem"></add-comp>
      <v-fab-transition>
-    <v-btn
+    <v-btn v-if="users.level!=='admin'"
        
         v-model="fab"
         v-show="additem"
@@ -96,7 +96,8 @@
       ]
     }),
     computed: {
-      additem: sync('additem')
+      additem: sync('additem'),
+      users: sync('users')
     }
 }
 </script>
