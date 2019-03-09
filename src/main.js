@@ -6,6 +6,8 @@ import Vuetify from 'Vuetify'
 import App from './App'
 import router from './router'
 import VueLodash from 'vue-lodash'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import 'vuetify/dist/vuetify.min.css'
 import 'vue-material-design-icons/styles.css'
 
@@ -14,7 +16,7 @@ import VueLazyload from 'vue-lazyload'
 const options = { name: 'lodash' }
 
 window.store = store
-Vue.use(Vuetify, VueLodash, VueLazyload, options)
+Vue.use(Vuetify, VueAxios, axios, VueLodash, VueLazyload, options)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

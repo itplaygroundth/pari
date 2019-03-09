@@ -1,4 +1,5 @@
 <template>
+<div class="centor">
 <v-flex xs12 sm12>
   <v-card
     class="mx-auto"
@@ -19,7 +20,7 @@
     <v-card-text class="headline font-weight-bold">
      <v-layout column wrap>
      <v-text-field v-model="userid" label="UserID"></v-text-field>
-     <v-text-field v-model="passwd" label="Password"></v-text-field>
+     <v-text-field v-model="passwd"  :type="'password'" label="Password" password></v-text-field>
      </v-layout>
     </v-card-text>
 
@@ -49,6 +50,7 @@
   </v-card>
     </v-flex>
 </v-layout>
+</div>
 </template>
 <script>
 export default {
@@ -69,5 +71,10 @@ export default {
 </script>
 
 <style>
-
+.centor {
+display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 </style>
