@@ -5,6 +5,7 @@ import store from '../store'
 import Index from '@/components/Index'
 import Add from '@/components/Add'
 import Admin from '@/components/Admin'
+import Axios from 'axios'
 
 Vue.use(Router)
 
@@ -21,12 +22,42 @@ const guard = async (to, from, next) => {
     }
   }
 }
+const getAuthHeader = async () => {
+  return {
+    'Authorization': `bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'DELETE, HEAD, GET, OPTIONS, POST, PUT',
+    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Content-Range, Content-Disposition, Content-Description',
+    'Access-Control-Max-Age': '1728000'
+  }
+}
+const requestOptions = {
+  method: 'POST',
+  headers: getAuthHeader()
+
+}
+const login = async (to, from, next) => {
+  Axios.post('https://vps434.vpshispeed.net/sapi/getdb', { username: 'pari', password: 'Jack1975' }, requestOptions)
+    .then(result => {
+      if (result.status === 200) {
+        store.set('users@token', result.data.token)
+        store.set('auth@loggedIn', true)
+        return next()
+      }
+    })
+}
+
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'Index',
-      component: Index
+      component: Index,
+      beforeEnter: (to, from, next) => {
+        login(to, from, next)
+      }
     },
     {
       path: '/add',

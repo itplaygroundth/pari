@@ -10,7 +10,7 @@
       <v-toolbar-title>Pari X Store</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-strong>{{users.username}}</v-strong>
+       <div class="title font-weight-light">{{users.username}}</div>
       <v-btn  v-if="users.username"  icon>
         <v-avatar size="36px">
       <img
@@ -89,6 +89,7 @@
         '32-36', '36-40', '40-44', '44-46'
       ],
       text: '',
+      show: false,
       cards: [
         { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 },
         { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
