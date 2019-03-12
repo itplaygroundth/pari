@@ -55,10 +55,15 @@
        <v-text-field
             v-model="code"
             label="Code"
+            @keyup.enter.native="next('Name')"
+            autofocus
           ></v-text-field>
           <v-text-field
             v-model="name"
             label="Name"
+            ref="Name"
+            @keyup.enter.native="next('Size')"
+            autofocus
           ></v-text-field>
            <v-flex d-flex>
             <v-layout row>
@@ -66,12 +71,15 @@
                 <v-checkbox
                 v-model="active"
                 label="Active"
+                ref="Active"
                 ></v-checkbox>
               </v-flex>
               <v-flex d-flex>
                <v-text-field
           v-model="size"
           label="Size"
+          @keyup.enter.native="next('barcode')"
+          ref="Size"
         ></v-text-field>
               </v-flex>
             </v-layout>
@@ -88,6 +96,9 @@
                   :counter="max"
                   :rules="rules"
                   label="Barcode"
+                  ref="barcode"
+                  @keyup.enter.native="next('SKU')"
+                  autofocus
                 ></v-text-field>
                </v-flex>
             </v-layout>
@@ -98,12 +109,17 @@
                 <v-text-field
           v-model="qty"
           label="SKU"
+          ref="SKU"
+          @keyup.enter.native="next('Price')"
+          autofocus
         ></v-text-field>
               </v-flex>
               <v-flex d-flex>
                <v-text-field
           v-model="price"
           label="Price"
+          ref="Price"
+          autofocus
         ></v-text-field>
               </v-flex>
             </v-layout>
@@ -186,6 +202,27 @@ export default {
     model: 'validateField'
   },
   methods: {
+    next (ref) {
+      this.$nextTick(function () {
+        switch (ref) {
+          case 'Name':
+            this.$refs.Name.focus()
+            break
+          case 'SKU':
+            this.$refs.SKU.focus()
+            break
+          case 'Size':
+            this.$refs.Size.focus()
+            break
+          case 'barcode':
+            this.$refs.barcode.focus()
+            break
+          case 'Price':
+            this.$refs.Price.focus()
+            break
+        }
+      })
+    },
     validateField () {
       this.$refs.form.validate()
     },
