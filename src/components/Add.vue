@@ -40,6 +40,7 @@
               :data-images="images"
               idUpload="myIdUpload"
               editUpload="myIdEdit"
+              name="photos"
               ></vue-upload-multiple-image>
           </div>
           <div style="display: flex; justify-content: center;">
@@ -145,6 +146,7 @@ import Swatches from 'vue-swatches'
 // Import the styles too, globally
 import 'vue-swatches/dist/vue-swatches.min.css'
 import VueUploadMultipleImage from 'vue-upload-multiple-image'
+import api from '../models/backapi'
 
 export default {
   name: 'add-comp',
@@ -161,6 +163,7 @@ export default {
       croppa: {},
       imageData: '',
       images: [],
+      imagex: [],
       show: false,
       size: '',
       qty: '',
@@ -228,7 +231,20 @@ export default {
     },
     save () {
       this.$store.set('additem', !this.additem)
-      this.images = []
+      console.log(this.images[0].path)
+      let data = {
+        barcode: this.barcode,
+        code: this.code,
+        name1: this.name,
+        sizecode: this.size,
+        stockqty: this.qty,
+        price: this.price,
+        active: this.active,
+        colorcode: this.itemcolor,
+        images: this.imagex
+      }
+      console.log(data)
+      // this.images = []
       // console.log(this.$store.state.additem)
     },
     cancel () {
@@ -253,10 +269,13 @@ export default {
       }
     },
     uploadImageSuccess (formData, index, fileList) {
+      // console.log(this.images)
       console.log('data', formData, index, fileList)
+      this.imagex.push(fileList[index])
+      api.uploadimg(formData)
       // Upload image api
-      // axios.post('http://your-url-upload', formData).then(response => {
-      //   console.log(response)
+      // Axios.post('http://vps434.vpshispeed.net/sapi/photos/upload', this.imagex).then(response => {
+      //  console.log(response)
       // })
     },
     beforeRemove (index, done, fileList) {
@@ -271,6 +290,7 @@ export default {
       console.log('edit data', formData, index, fileList)
     },
     dataChange (data) {
+    // onsole.log(data[0].path)
       console.log(data)
     }
 
