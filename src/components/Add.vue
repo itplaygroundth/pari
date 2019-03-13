@@ -18,19 +18,7 @@
         xs12
         md4
       >
-        <v-form ref="form">
-         <!-- <v-img :aspect-ratio="1.7" :src="imageData" contain></v-img> -->
-           <!-- <div>
-            <div class="file-upload-form">
-                Upload an image file:
-                <input type="file" @change="previewImage" accept="image/*">
-            </div>
-            <div class="image-preview" v-if="imageData.length > 0">
-                <img class="preview" :src="imageData">
-            </div>
-        </div>-->
-         <!-- <v-btn color="blue"  @click="$refs.inputUpload.click()">Image</v-btn>
-          <input v-show="false" ref="inputUpload" type="file" @change="previewImage" > -->
+        <form ref="form" enctype="multipart/form-data">
           <div id="my-strictly-unique-vue-upload-multiple-image" style="display: flex; justify-content: center;">
             <vue-upload-multiple-image
               @upload-success="uploadImageSuccess"
@@ -46,7 +34,7 @@
           <div style="display: flex; justify-content: center;">
             <swatches v-model="itemcolor" :colors="colors" show-border inline></swatches>
           </div>
-        </v-form>
+        </form>
       </v-flex>
 
       <v-flex
@@ -231,7 +219,7 @@ export default {
     },
     save () {
       this.$store.set('additem', !this.additem)
-      console.log(this.images[0].path)
+      // console.log(this.images[0].path)
       let data = {
         barcode: this.barcode,
         code: this.code,
@@ -243,7 +231,7 @@ export default {
         colorcode: this.itemcolor,
         images: this.imagex
       }
-      console.log(data)
+      console.log(data.images[0])
       // this.images = []
       // console.log(this.$store.state.additem)
     },
@@ -270,13 +258,20 @@ export default {
     },
     uploadImageSuccess (formData, index, fileList) {
       // console.log(this.images)
-      console.log('data', formData, index, fileList)
-      this.imagex.push(fileList[index])
-      api.uploadimg(formData)
-      // Upload image api
-      // Axios.post('http://vps434.vpshispeed.net/sapi/photos/upload', this.imagex).then(response => {
-      //  console.log(response)
-      // })
+      // console.log('data', formData, index, fileList)
+      formData.append('name', fileList[index].name)
+      formData.append('file', fileList[index].path)
+      // this.imagex.push(fileList[index])
+      var gfile = function () {
+        return new Promise(function (resolve) {
+          api.uploadimg(formData).then(function (response) {
+            return resolve(response.file)
+          })
+        })
+      }
+      gfile().then(response => {
+        this.imagex.push(response)
+      })
     },
     beforeRemove (index, done, fileList) {
       console.log('index', index, fileList)

@@ -1,10 +1,11 @@
 import Axios from 'axios'
+
 const baseDomain = 'https://vps434.vpshispeed.net'
 const baseUrl = baseDomain + '/sapi'
 const getAuthHeader = async () => {
   return {
     'Authorization': `bearer ${localStorage.getItem('token')}`,
-    'Content-Type': 'application/json;charset=UTF-8',
+    'Content-Type': 'multipart/form-data',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'DELETE, HEAD, GET, OPTIONS, POST, PUT',
@@ -16,11 +17,16 @@ const requestOptions = {
   method: 'POST',
   headers: getAuthHeader()
 }
+const handleResponse = (response) => {
+  const data = response.data
+  if (!response.data) {
+    const error = (data && data.message) || response.statusText
+    return Promise.reject(error)
+  }
+  return data
+}
 export default {
   uploadimg (data) {
-    Axios.post(baseUrl + '/photos/upload', data, requestOptions).then(result => {
-      return result
-    })
+    return Axios.post(baseUrl + '/photos/upload', data, requestOptions).then(handleResponse)
   }
 }
-/** */
