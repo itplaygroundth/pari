@@ -19,6 +19,7 @@
     "vue-axios": "^2.1.4",
     "vue-lodash": "^2.0.0",
     "vue-material-design-icons": "^3.1.0",
+    "vue-owl-carousel": "^2.0.3",
     "vue-router": "^3.0.1",
     "vue-swatches": "^1.0.3",
     "vue-upload-multiple-image": "^1.1.3",

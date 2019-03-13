@@ -53,6 +53,8 @@
     </v-tabs-items> -->
     <br>
     <add-comp v-show="!additem"></add-comp>
+    <list-comp v-show="additem"></list-comp>
+    <list-comp v-show="additem"></list-comp>
      <v-fab-transition>
     <v-btn v-if="users.level!=='admin'"
        
@@ -75,12 +77,14 @@
 </template>
 <script>
   import Add from '@/components/Add'
+  import List from '@/components/List'
   import { sync } from 'vuex-pathify'
   
   export default {
     name: 'index',
     components: {
-      'add-comp': Add
+      'add-comp': Add,
+      'list-comp': List
     },
     data: () => ({
       tab: '32-36',

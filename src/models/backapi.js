@@ -28,5 +28,9 @@ const handleResponse = (response) => {
 export default {
   uploadimg (data) {
     return Axios.post(baseUrl + '/photos/upload', data, requestOptions).then(handleResponse)
+  },
+  save (data) {
+    return Axios.post(baseUrl + '/itemx', data, requestOptions).then(handleResponse)
   }
+
 }

@@ -231,7 +231,11 @@ export default {
         colorcode: this.itemcolor,
         images: this.imagex
       }
-      console.log(data.images[0])
+      api.save(data)
+        .then(function (response) {
+          this.imagex = []
+        })
+      // console.log(data.images[0])
       // this.images = []
       // console.log(this.$store.state.additem)
     },

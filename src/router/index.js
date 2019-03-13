@@ -5,6 +5,7 @@ import store from '../store'
 import Index from '@/components/Index'
 import Add from '@/components/Add'
 import Admin from '@/components/Admin'
+import List from '@/components/List'
 import Axios from 'axios'
 
 Vue.use(Router)
@@ -71,6 +72,11 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         guard(to, from, next)
       }
+    },
+    {
+      path: '/list',
+      name: 'List',
+      component: List
     }
   ]
 })
