@@ -53,8 +53,8 @@
     </v-tabs-items> -->
     <br>
     <add-comp v-show="!additem"></add-comp>
-    <list-comp v-show="additem"></list-comp>
-    <list-comp v-show="additem"></list-comp>
+    <list-comp v-for="n in models" :key="n.title" v-show="additem"></list-comp>
+    <!-- <list-comp v-show="additem"></list-comp> -->
      <v-fab-transition>
     <v-btn v-if="users.level!=='admin'"
        
@@ -98,6 +98,12 @@
         { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 },
         { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
         { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 }
+      ],
+      models: [
+        { title: 'A' },
+        { title: 'B' },
+        { title: 'C' },
+        { title: 'D' }
       ]
     }),
     computed: {

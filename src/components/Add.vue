@@ -51,6 +51,13 @@
             v-model="name"
             label="Name"
             ref="Name"
+            @keyup.enter.native="next('Models')"
+            autofocus
+          ></v-text-field>
+           <v-text-field
+            v-model="models"
+            label="Model"
+            ref="Models"
             @keyup.enter.native="next('Size')"
             autofocus
           ></v-text-field>
@@ -156,6 +163,7 @@ export default {
       size: '',
       qty: '',
       price: '',
+      models: '',
       card_text: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.'
     }
   },
@@ -199,6 +207,9 @@ export default {
           case 'Name':
             this.$refs.Name.focus()
             break
+          case 'Models':
+            this.$refs.Models.focus()
+            break
           case 'SKU':
             this.$refs.SKU.focus()
             break
@@ -229,6 +240,7 @@ export default {
         price: this.price,
         active: this.active,
         colorcode: this.itemcolor,
+        models: this.models,
         images: this.imagex
       }
       api.save(data)

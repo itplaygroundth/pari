@@ -31,6 +31,9 @@ export default {
   },
   save (data) {
     return Axios.post(baseUrl + '/itemx', data, requestOptions).then(handleResponse)
+  },
+  login (data) {
+    return Axios.post(baseUrl + '/getdb', data, requestOptions).then(handleResponse)
   }
 
 }
