@@ -34,6 +34,9 @@ export default {
   },
   login (data) {
     return Axios.post(baseUrl + '/getdb', data, requestOptions).then(handleResponse)
+  },
+  addmo (data) {
+    return Axios.post(baseUrl + '/addmo', data, requestOptions).then(handleResponse)
   }
 
 }

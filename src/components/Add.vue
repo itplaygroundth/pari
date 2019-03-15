@@ -54,13 +54,84 @@
             @keyup.enter.native="next('Models')"
             autofocus
           ></v-text-field>
-           <v-text-field
+         
+            <v-flex d-flex>
+            <v-layout row>
+                
+              <v-flex d-flex>
+               <v-combobox
+          v-model="models"
+          :items="items"
+          label="Model"
+            @keyup.enter.native="next('Size')"
+            autofocus
+        ></v-combobox>
+              </v-flex>
+               
+              <v-flex d-flex>
+           
+                <v-icon left medium @click="expand = !expand">fas fa-plus-square</v-icon>
+              
+              </v-flex>
+              
+            </v-layout>
+          </v-flex>
+          <v-expand-transition>
+      <div v-show="expand">
+          <v-card>
+            <v-card-title>
+              <v-layout row>
+              <v-flex d-flex>
+                <v-text-field
+            v-model="models.code"
+            label="Code"
+            ref="Mcode"
+            @keyup.enter.native="next('Mname')"
+            autofocus
+          ></v-text-field>
+              </v-flex>
+              <v-flex d-flex>
+              <v-text-field
+            v-model="models.name"
+            label="Name"
+            ref="Mname"
+            autofocus
+          ></v-text-field>
+              </v-flex>
+            </v-layout>
+            </v-card-title>
+             <v-card-actions>
+               <v-spacer></v-spacer>
+               <v-icon large color="green" @click="savem">fas fa-check-square</v-icon>
+               <span style="width:10px"></span>
+               <v-icon large color="red" @click="cancelm">fas fa-window-close</v-icon>
+             </v-card-actions>
+          </v-card>
+      </div>
+    </v-expand-transition>
+        
+
+            <!-- <v-layout row v-show="!showCollapse" transition="expand">
+              <v-flex d-flex>
+                <v-text-field
             v-model="models"
             label="Model"
             ref="Models"
             @keyup.enter.native="next('Size')"
             autofocus
           ></v-text-field>
+              </v-flex>
+              <v-flex d-flex>
+              <v-text-field
+            v-model="models"
+            label="Model"
+            ref="Models"
+            @keyup.enter.native="next('Size')"
+            autofocus
+          ></v-text-field>
+              </v-flex>
+            </v-layout> -->
+          
            <v-flex d-flex>
             <v-layout row>
               <v-flex d-flex>
@@ -128,8 +199,9 @@
         </v-card-title>
        
         <v-card-actions>
-               <v-spacer></v-spacer>
+               
           <v-btn  color="green" large @click="save">Save</v-btn>
+          <v-spacer></v-spacer>
           <v-btn  color="red" large @click="cancel">Cancel</v-btn>
         </v-card-actions>
       </v-card>
@@ -149,6 +221,7 @@ export default {
   data () {
     return {
       active: false,
+      expand: false,
       barcode: '',
       itemcolor: '#FFFFFF',
       colors: ['#FFFFFF', '#FFF9C4', '#B3E5FC', '#FCE4EC', '#CE93D8'],
@@ -163,7 +236,11 @@ export default {
       size: '',
       qty: '',
       price: '',
-      models: '',
+      models: {
+        code: '',
+        name: ''
+      },
+      items: [],
       card_text: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.'
     }
   },
@@ -207,9 +284,9 @@ export default {
           case 'Name':
             this.$refs.Name.focus()
             break
-          case 'Models':
-            this.$refs.Models.focus()
-            break
+          // case 'Models':
+          //   this.$refs.Models.focus()
+          //   break
           case 'SKU':
             this.$refs.SKU.focus()
             break
@@ -221,6 +298,9 @@ export default {
             break
           case 'Price':
             this.$refs.Price.focus()
+            break
+          case 'Mname':
+            this.$refs.Mname.focus()
             break
         }
       })
@@ -303,6 +383,12 @@ export default {
     dataChange (data) {
     // onsole.log(data[0].path)
       console.log(data)
+    },
+    savem () {
+      this.expand = !this.expand
+    },
+    cancelm () {
+      this.expand = !this.expand
     }
 
   }
