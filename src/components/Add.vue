@@ -396,7 +396,6 @@ export default {
       console.log('edit data', formData, index, fileList)
     },
     dataChange (data) {
-    // onsole.log(data[0].path)
       console.log(data)
     },
     savem () {
