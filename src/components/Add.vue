@@ -60,8 +60,11 @@
                 
               <v-flex d-flex>
                <v-combobox
-          v-model="models"
+          v-model="model"
           :items="items"
+          hide-no-data
+          hide-selected
+          
           label="Model"
             @keyup.enter.native="next('Size')"
             autofocus
@@ -85,7 +88,6 @@
                 <v-text-field
             v-model="models.code"
             label="Code"
-            ref="Mcode"
             @keyup.enter.native="next('Mname')"
             autofocus
           ></v-text-field>
@@ -236,6 +238,7 @@ export default {
       size: '',
       qty: '',
       price: '',
+      model: '',
       models: {
         code: '',
         name: ''
@@ -255,6 +258,7 @@ export default {
 
         rules.push(rule)
       }
+
       // if (!this.allowSpaces) {
       //   const rule =
       //       v => (v || '').indexOf(' ') < 0 ||
@@ -272,10 +276,8 @@ export default {
       return rules
     }
   },
-  watch: {
-    match: 'validateField',
-    max: 'validateField',
-    model: 'validateField'
+  created () {
+    this.getmodels()
   },
   methods: {
     next (ref) {
@@ -385,10 +387,28 @@ export default {
       console.log(data)
     },
     savem () {
-      this.expand = !this.expand
+      api.addmo(this.models).then(res => {
+        this.models.code = ''
+        this.models.name = ''
+        this.expand = !this.expand
+      })
     },
     cancelm () {
+      this.models.code = ''
+      this.models.name = ''
       this.expand = !this.expand
+    },
+    getmodels () {
+      this.isLoading = true
+      api.getmodels()
+        .then(res => {
+          // console.log(res)
+          this.items = JSON.parse(JSON.stringify(res.rows))
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(() => (this.isLoading = false))
     }
 
   }
