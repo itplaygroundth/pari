@@ -59,12 +59,12 @@ export default {
       items: '',
       cards: [
         // { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 }
+        { title: 'Favorite', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
+        { title: 'Best ', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 },
+        { title: 'Favoritead trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
+        { title: 'Best anes', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 },
+        { title: 'Favori road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
+        { title: 'Bees', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 }
       ]
     }
   }

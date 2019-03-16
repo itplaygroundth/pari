@@ -4,6 +4,7 @@ import store from '../store'
 // import Hello from '@/components/Hello'
 import Index from '@/components/Index'
 import Add from '@/components/Add'
+import Show from '@/components/Show'
 import Admin from '@/components/Admin'
 import List from '@/components/List'
 import Axios from 'axios'
@@ -49,7 +50,11 @@ const login = async (to, from, next) => {
       }
     })
 }
-
+// function loadView(view) {
+//   return () => import(
+//     `@/components/${view}.vue`
+//   )
+// }
 export default new Router({
   routes: [
     {
@@ -77,6 +82,11 @@ export default new Router({
       path: '/list',
       name: 'List',
       component: List
+    },
+    {
+      path: '/Show',
+      name: 'show',
+      component: Show
     }
   ]
 })

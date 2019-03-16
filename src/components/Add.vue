@@ -1,4 +1,5 @@
 <template>
+<v-app>
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
           <v-toolbar color="#78909C" dark>
@@ -59,18 +60,16 @@
             <v-layout row>
                 
               <v-flex d-flex>
-               <v-combobox
-          v-model="model"
+             <v-combobox
+          v-model="models"
           :items="items"
-          hide-no-data
-          hide-selected
+          :search-input.sync="search"
+          item-text="name"
+          item-value="code"
+          label="..."
           
-          label="Model"
-            @keyup.enter.native="next('Size')"
-            autofocus
         ></v-combobox>
-              </v-flex>
-               
+               </v-flex>
               <v-flex d-flex>
            
                 <v-icon left medium @click="expand = !expand">fas fa-plus-square</v-icon>
@@ -80,7 +79,7 @@
             </v-layout>
           </v-flex>
           <v-expand-transition>
-      <div v-show="expand">
+          <div v-show="expand">
           <v-card>
             <v-card-title>
               <v-layout row>
@@ -209,6 +208,7 @@
       </v-card>
     </v-flex>
   </v-layout>
+  </v-app>
 </template>
 <script>
 import Swatches from 'vue-swatches'
@@ -243,8 +243,19 @@ export default {
         code: '',
         name: ''
       },
-      items: [],
+      search: '',
+      select: '',
+      items: [{'code': 1, 'name': 'iphone6'}],
       card_text: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.'
+    }
+  },
+  watch: {
+    search (val) {
+      if (val === null) return
+      if (val.length > 1) {
+        this.isLoading = true
+        this.getmodels()
+      }
     }
   },
   computed: {
@@ -303,6 +314,8 @@ export default {
             break
           case 'Mname':
             this.$refs.Mname.focus()
+            break
+          default:
             break
         }
       })
@@ -404,6 +417,7 @@ export default {
         .then(res => {
           // console.log(res)
           this.items = JSON.parse(JSON.stringify(res.rows))
+          // console.log(this.items)
         })
         .catch(err => {
           console.log(err)

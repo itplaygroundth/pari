@@ -10,7 +10,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'vuetify/dist/vuetify.min.css'
 import 'vue-material-design-icons/styles.css'
-
 import VueLazyload from 'vue-lazyload'
 
 const options = { name: 'lodash' }
