@@ -1,5 +1,6 @@
 <template>
-            <carousel :stagePadding=0 :responsive="{0:{items:1,nav:false},600:{items:3,nav:true}}">
+            <carousel :stagePadding=0 
+            :responsive="{0:{items:1,nav:false},600:{items:3,nav:false}}">
                        
             <v-flex
               v-for="card in cards"
