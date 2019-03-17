@@ -4,15 +4,16 @@
                        
             <v-flex
               v-for="card in cards"
-              :key="card.title"
-              v-bind="{ [`xs${card.flex}`]: true }"
+              :key="card.code"
+               v-bind="{ [`xs${card.flex}`]: true }"
               grow
               pa-2
             >
               <v-card>
                 <v-img
-                  :src="card.src"
+                  :src="loadurl(card.picfilename1)"
                   height="200px"
+                  contain
                 >
                   <v-container
                     fill-height
@@ -21,15 +22,16 @@
                   >
                     <v-layout fill-height>
                       <v-flex xs12 align-end flexbox>
-                        <span class="headline white--text" v-text="card.title"></span>
+                        
+                          <span class="headline black--text" v-text="card.title"></span>
                       </v-flex>
                     </v-layout>
                   </v-container>
                 </v-img>
 
                 <v-card-actions class="headline text-truncate">
-                 <v-flex><v-icon left medium >fas fa-box</v-icon>20 SKU</v-flex>
-                 <v-flex><v-icon left medium >fas fa-dollar-sign</v-icon> 1,200 Baht</v-flex>
+                 <v-flex><v-icon left medium >fas fa-box</v-icon>{{card.stockqty}}</v-flex>
+                 <v-flex><v-icon left medium >fas fa-dollar-sign</v-icon>{{card.price}}</v-flex>
                  <v-flex><v-icon left medium >fas fa-cart-plus</v-icon>0</v-flex>
                   <!-- <v-btn icon>
                     <v-icon>favorite</v-icon>
@@ -54,18 +56,40 @@ import carousel from 'vue-owl-carousel'
 export default {
   components: { carousel },
   name: 'list-comp',
+  props: ['models', 'all', 'id'],
   data () {
     return {
       items: '',
-      cards: [
-        // { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 },
-        { title: 'Favorite', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
-        { title: 'Best ', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 },
-        { title: 'Favoritead trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
-        { title: 'Best anes', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 },
-        { title: 'Favori road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 12 },
-        { title: 'Bees', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 12 }
-      ]
+      cards: []
+    }
+  },
+  created () {
+    this.initCard()
+  },
+  methods: {
+    initCard () {
+      const map = new Map()
+      if (!map.has(this.models)) {
+        map.set(this.models, true)
+        this.all.map((key) => {
+          if (key.modelcode === this.id) {
+            this.cards.push({
+              modelcode: key.modelcode,
+              title: key.title,
+              code: key.code,
+              name1: key.name1,
+              picfilename1: key.picfilename1,
+              price: key.price,
+              stockqty: key.stockqty,
+              flex: key.flex
+            })
+          }
+        })
+      }
+    },
+    loadurl (img) {
+      return 'https://vps434.vpshispeed.net/sapi/images/' + img
+      // return require('../static/img/product' + img)
     }
   }
 }

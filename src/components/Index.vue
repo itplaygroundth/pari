@@ -53,7 +53,9 @@
     </v-tabs-items> -->
     <br>
     <add-comp v-show="!additem"></add-comp>
-    <list-comp v-for="n in models" :key="n.title" v-show="additem"></list-comp>
+    <template v-for="n in models" v-show="additem" >
+      <list-comp v-bind:key="n.modelcode" v-bind:id="n.modelcode" v-bind:all="cdata"></list-comp>
+    </template>
     <!-- <list-comp v-show="additem"></list-comp> -->
      <v-fab-transition>
     <v-btn v-if="users.level!=='admin'"
@@ -79,6 +81,7 @@
   import Add from '@/components/Add'
   import List from '@/components/List'
   import { sync } from 'vuex-pathify'
+  import api from '../models/backapi'
   
   export default {
     name: 'index',
@@ -99,16 +102,41 @@
         { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
         { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 }
       ],
-      models: [
-        { title: 'A' },
-        { title: 'B' },
-        { title: 'C' },
-        { title: 'D' }
-      ]
+      models: [],
+      all: []
     }),
+    created () {
+      this.getItem()
+    },
     computed: {
       additem: sync('additem'),
-      users: sync('users')
+      users: sync('users'),
+      cdata: function () {
+        return this.all
+      }
+    },
+    methods: {
+      getItem () {
+        this.isLoading = true
+        api.getItems()
+          .then(res => {
+            this.all = JSON.parse(JSON.stringify(res.data))
+            const map = new Map()
+            for (const item of JSON.parse(JSON.stringify(res.data))) {
+              if (!map.has(item.modelcode)) {
+                map.set(item.modelcode, true)
+                this.models.push({
+                  modelcode: item.modelcode,
+                  title: item.title
+                })
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+          .finally(() => (this.isLoading = false))
+      }
     }
 }
 </script>

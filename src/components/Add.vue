@@ -338,10 +338,17 @@ export default {
         models: this.models,
         images: this.imagex
       }
-      api.save(data)
-        .then(function (response) {
-          this.imagex = []
+      var sfile = function () {
+        return new Promise(function (resolve) {
+          api.save(data)
+            .then(function (response) {
+              return resolve(response.file)
+            })
         })
+      }
+      sfile().then(response => {
+        this.imagex = []
+      })
       // console.log(data.images[0])
       // this.images = []
       // console.log(this.$store.state.additem)

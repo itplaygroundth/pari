@@ -14,7 +14,6 @@ const getAuthHeader = async () => {
   }
 }
 const requestOptions = {
-  methods: 'POST',
   headers: getAuthHeader()
 }
 const handleResponse = (response) => {
@@ -30,16 +29,23 @@ export default {
     return Axios.post(baseUrl + '/photos/upload', data, requestOptions).then(handleResponse)
   },
   save (data) {
-    return Axios.post(baseUrl + '/itemx', data, requestOptions).then(handleResponse)
+    return Axios.post(baseUrl + '/item', data, requestOptions).then(handleResponse)
   },
   login (data) {
     return Axios.post(baseUrl + '/getdb', data, requestOptions).then(handleResponse)
   },
   addmo (data) {
-    return Axios.post(baseUrl + '/item/model', data, requestOptions).then(handleResponse)
+    return Axios.post(baseUrl + '/model', data, requestOptions).then(handleResponse)
   },
   getmodels () {
     return Axios.get(baseUrl + '/model', requestOptions)
+      .then(handleResponse)
+      .then(res => {
+        return res
+      })
+  },
+  getItems () {
+    return Axios.get(baseUrl + '/bymodel', requestOptions)
       .then(handleResponse)
       .then(res => {
         return res
