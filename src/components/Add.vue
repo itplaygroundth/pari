@@ -386,6 +386,9 @@ export default {
       var gfile = function () {
         return new Promise(function (resolve) {
           api.uploadimg(formData).then(function (response) {
+            if (response.status === '502') {
+              response = {file: 'none.jpg'}
+            }
             return resolve(response.file)
           })
         })
