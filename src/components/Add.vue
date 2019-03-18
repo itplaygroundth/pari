@@ -288,6 +288,7 @@ export default {
     }
   },
   created () {
+    this.cleardata()
     this.getmodels()
   },
   methods: {
@@ -347,7 +348,8 @@ export default {
         })
       }
       sfile().then(response => {
-        this.imagex = []
+        // this.imagex = []
+        this.$store.set('reindex', true)
       })
       // console.log(data.images[0])
       // this.images = []
@@ -356,6 +358,7 @@ export default {
     cancel () {
       this.$store.set('additem', !this.additem)
       this.images = []
+      this.$store.set('reindex', false)
     },
     previewImage: function (event) {
       // Reference to the DOM input element
@@ -388,6 +391,7 @@ export default {
         })
       }
       gfile().then(response => {
+        console.log(response)
         this.imagex.push(response)
       })
     },
@@ -430,6 +434,21 @@ export default {
           console.log(err)
         })
         .finally(() => (this.isLoading = false))
+    },
+    cleardata () {
+      this.barcode = ''
+      this.code = ''
+      this.name = ''
+      this.size = ''
+      this.qty = ''
+      this.price = ''
+      this.active = ''
+      this.itemcolor = ''
+      this.models = ''
+      this.imagex = []
+    },
+    loadcombo (val) {
+      console.log()
     }
 
   }

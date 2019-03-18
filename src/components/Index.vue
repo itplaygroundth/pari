@@ -53,9 +53,11 @@
     </v-tabs-items> -->
     <br>
     <add-comp v-show="!additem"></add-comp>
-    <template v-for="n in models" v-show="additem" >
+    <div v-show="additem">
+    <template v-for="n in models">
       <list-comp v-bind:key="n.modelcode" v-bind:id="n.modelcode" v-bind:all="cdata"></list-comp>
     </template>
+    </div>
     <!-- <list-comp v-show="additem"></list-comp> -->
      <v-fab-transition>
     <v-btn v-if="users.level!=='admin'"
@@ -108,8 +110,19 @@
     created () {
       this.getItem()
     },
+    watch: {
+      reindex: function () {
+        console.log(this.$store.state.reindex)
+        this.models = []
+        this.additem = true
+        this.getItem()
+        // console.log(this.$store.state.additem)
+        // if (this.additem) this.getItem()
+      }
+    },
     computed: {
       additem: sync('additem'),
+      reindex: sync('reindex'),
       users: sync('users'),
       cdata: function () {
         return this.all
@@ -140,3 +153,8 @@
     }
 }
 </script>
+<style scoped>
+.showlist {
+  min-height: 100vh;
+}
+</style>

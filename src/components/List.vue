@@ -6,7 +6,7 @@
               v-for="card in cards"
               :key="card.code"
                v-bind="{ [`xs${card.flex}`]: true }"
-              grow
+              shirnk
               pa-2
             >
               <v-card>
@@ -88,7 +88,11 @@ export default {
       }
     },
     loadurl (img) {
-      return 'https://vps434.vpshispeed.net/sapi/images/' + img
+      var url = 'https://vps434.vpshispeed.net/sapi/images/' + img
+      if (img === null) {
+        url = 'https://vps434.vpshispeed.net/sapi/images/none.png'
+      }
+      return url
       // return require('../static/img/product' + img)
     }
   }

@@ -18,6 +18,7 @@ const state = {
     token: ''
   },
   additem: true,
+  reindex: false,
   name: 'World',
   auth: {
     loggedIn: false
