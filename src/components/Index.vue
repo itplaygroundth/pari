@@ -131,12 +131,12 @@
       getItem () {
         this.isLoading = true
         // api.getItems()
+        this.models = []
         api.getItemsbsize({'size': this.tab})
           .then(res => {
             this.all = JSON.parse(JSON.stringify(res.data))
             // console.log(this.all)
             const map = new Map()
-            this.models = []
             for (const item of JSON.parse(JSON.stringify(res.data))) {
               if (!map.has(item.modelcode)) {
                 map.set(item.modelcode, true)
@@ -155,6 +155,7 @@
       changetab () {
         // sconsole.log(this.all)
         this.getItem()
+        // console.log(this.models)
       }
     }
 }
