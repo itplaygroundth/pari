@@ -52,15 +52,32 @@
 
 <script>
 import carousel from 'vue-owl-carousel'
-
 export default {
   components: { carousel },
   name: 'list-comp',
-  props: ['models', 'all', 'id'],
+  props: ['models', 'all', 'id', 'tab'],
   data () {
     return {
       items: '',
       cards: []
+    }
+  },
+  watch: {
+    all: function () {
+      this.cards = []
+      const map = new Map()
+      this.models = []
+      for (const item of this.all) {
+        if (!map.has(item.modelcode)) {
+          map.set(item.modelcode, true)
+          this.models.push({
+            modelcode: item.modelcode,
+            title: item.title
+          })
+        }
+      }
+      console.log(this.models)
+      // this.initCard()
     }
   },
   created () {

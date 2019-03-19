@@ -67,6 +67,7 @@
           item-text="name"
           item-value="code"
           label="..."
+          @change="onchange"
           
         ></v-combobox>
                </v-flex>
@@ -240,8 +241,8 @@ export default {
       price: '',
       model: '',
       models: {
-        code: '',
-        name: ''
+        code: '...',
+        name: '...'
       },
       search: '',
       select: '',
@@ -402,6 +403,7 @@ export default {
       console.log('index', index, fileList)
       var r = confirm('remove image')
       if (r === true) {
+        this.imagex.splice(index, 1)
         done()
       } else {
       }
@@ -452,6 +454,19 @@ export default {
     },
     loadcombo (val) {
       console.log()
+    },
+    onchange (value) {
+      if (value == null) {
+        this.models = {
+          code: '',
+          name: ''
+        }
+      }
+      // console.log(value)
+      // if (value === '') {
+      //   value = null
+      // }
+      // this.$emit('input', value)
     }
 
   }

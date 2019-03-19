@@ -26,7 +26,7 @@
           fixed=tabs
           slider-color="#F44336"
           grow
-          @change="show"
+          @change="changetab"
         >
           <!-- <v-tabs-slider color="#FF4081"></v-tabs-slider> -->
 
@@ -55,7 +55,7 @@
     <add-comp v-show="!additem"></add-comp>
     <div v-show="additem">
     <template v-for="n in models">
-      <list-comp v-bind:key="n.modelcode" v-bind:id="n.modelcode" v-bind:all="cdata"></list-comp>
+      <list-comp v-bind:key="n.modelcode" v-bind:id="n.modelcode" v-bind:all="cdata" v-bind:tab="tab"></list-comp>
     </template>
     </div>
     <!-- <list-comp v-show="additem"></list-comp> -->
@@ -92,13 +92,11 @@
       'list-comp': List
     },
     data: () => ({
-      tab: '32-36',
       fab: '',
       items: [
         '32-36', '36-40', '40-44', '44-46'
       ],
       text: '',
-      show: false,
       cards: [
         { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 },
         { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
@@ -112,7 +110,7 @@
     },
     watch: {
       reindex: function () {
-        console.log(this.$store.state.reindex)
+        // console.log(this.$store.state.reindex)
         this.models = []
         this.additem = true
         this.getItem()
@@ -123,6 +121,7 @@
     computed: {
       additem: sync('additem'),
       reindex: sync('reindex'),
+      tab: sync('tab'),
       users: sync('users'),
       cdata: function () {
         return this.all
@@ -131,10 +130,13 @@
     methods: {
       getItem () {
         this.isLoading = true
-        api.getItems()
+        // api.getItems()
+        api.getItemsbsize({'size': this.tab})
           .then(res => {
             this.all = JSON.parse(JSON.stringify(res.data))
+            // console.log(this.all)
             const map = new Map()
+            this.models = []
             for (const item of JSON.parse(JSON.stringify(res.data))) {
               if (!map.has(item.modelcode)) {
                 map.set(item.modelcode, true)
@@ -149,6 +151,10 @@
             console.log(err)
           })
           .finally(() => (this.isLoading = false))
+      },
+      changetab () {
+        // sconsole.log(this.all)
+        this.getItem()
       }
     }
 }

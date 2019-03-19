@@ -50,5 +50,12 @@ export default {
       .then(res => {
         return res
       })
+  },
+  getItemsbsize (data) {
+    return Axios.post(baseUrl + '/bysizemodel', data, requestOptions)
+      .then(handleResponse)
+      .then(res => {
+        return res
+      })
   }
 }

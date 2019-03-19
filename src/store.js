@@ -20,6 +20,7 @@ const state = {
   additem: true,
   reindex: false,
   name: 'World',
+  tab: '32-36',
   auth: {
     loggedIn: false
   }
