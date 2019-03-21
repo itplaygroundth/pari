@@ -8,7 +8,7 @@
               shirnk
               pa-2
             >
-            <v-card color="white darken-2" class="white--text">
+            <v-card color="white">
               <v-layout>
                 <v-flex xs5>
                   <v-img
@@ -32,11 +32,12 @@
               </v-layout>
               <v-divider light></v-divider>
               <v-card-actions class="pa-3">
-                <div class="headline  black--text">ราคา {{card.price}}   บาท</div>
+                <div class="headline  black--text">ราคา {{ $n(card.price,'currency') }}  </div>
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
+                <div class="headline  black--text">เหลือ {{ card.stockqty }}   ตัว</div>
                 <v-spacer></v-spacer>
-                <div class="headline  black--text">คงเหลือ {{card.stockqty}}   ตัว</div>
+                <div><v-icon color="red">fas fa-cart-plus</v-icon></div>
 
               </v-card-actions>
             </v-card>
@@ -92,6 +93,7 @@ import Swatches from 'vue-swatches'
 // Import the styles too, globally
 import 'vue-swatches/dist/vue-swatches.min.css'
 import carousel from 'vue-owl-carousel'
+
 export default {
   components: { Swatches, carousel },
   name: 'list-comp',
