@@ -10,6 +10,19 @@
       <v-toolbar-title>Pari X Store</v-toolbar-title>
 
       <v-spacer></v-spacer>
+       <v-badge
+          v-model="show"
+          color="cyan"
+          left
+        >
+          <template v-slot:badge>
+            <span>{{carts.length}}</span>
+          </template>
+          <v-icon
+            large
+            color="grey lighten-1"
+          >shopping_cart</v-icon>
+        </v-badge>
        <div class="title font-weight-light">{{users.username}}</div>
       <v-btn  v-if="users.username"  icon>
         <v-avatar size="36px">
@@ -121,6 +134,7 @@
     computed: {
       additem: sync('additem'),
       reindex: sync('reindex'),
+      carts: sync('carts'),
       tab: sync('tab'),
       users: sync('users'),
       cdata: function () {

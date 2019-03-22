@@ -21,6 +21,7 @@ const state = {
   reindex: false,
   name: 'World',
   tab: '32-36',
+  carts: [],
   auth: {
     loggedIn: false
   }

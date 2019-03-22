@@ -37,7 +37,7 @@
                 <v-spacer></v-spacer>
                 <div class="headline  black--text">เหลือ {{ card.stockqty }}   ตัว</div>
                 <v-spacer></v-spacer>
-                <div><v-icon color="red">fas fa-cart-plus</v-icon></div>
+                <div><v-icon color="red" @click="addcart(card)">fas fa-cart-plus</v-icon></div>
 
               </v-card-actions>
             </v-card>
@@ -91,6 +91,7 @@
 <script>
 import Swatches from 'vue-swatches'
 // Import the styles too, globally
+import { sync } from 'vuex-pathify'
 import 'vue-swatches/dist/vue-swatches.min.css'
 import carousel from 'vue-owl-carousel'
 
@@ -103,7 +104,8 @@ export default {
       items: '',
       itemcolor: '#FFFFFF',
       colors: ['#FFFFFF', '#FFF9C4', '#B3E5FC', '#FCE4EC', '#CE93D8'],
-      cards: []
+      cards: [],
+      selected: []
     }
   },
   watch: {
@@ -124,6 +126,9 @@ export default {
       // console.log(this.models)
       // this.initCard()
     }
+  },
+  computed: {
+    carts: sync('carts')
   },
   created () {
     this.initCard()
@@ -158,6 +163,15 @@ export default {
       }
       return url
       // return require('../static/img/product' + img)
+    },
+    addcart (item) {
+      this.selected.push(item)
+      this.$store.set('carts', this.selected)
+      // var cart = []
+      // cart.push(() => {
+      //   return this.cards.filter(v => v.code === code)
+      // })
+      // this.$store.state.carts.push(item)
     }
   }
 }
