@@ -14,6 +14,7 @@ import VueAxios from 'vue-axios'
 import 'vuetify/dist/vuetify.min.css'
 import 'vue-material-design-icons/styles.css'
 import VueLazyload from 'vue-lazyload'
+
 const messages = Object.assign(languages)
 const options = { name: 'lodash' }
 

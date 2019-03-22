@@ -327,6 +327,7 @@ export default {
     },
     save () {
       this.$store.set('additem', !this.additem)
+      this.$store.set('showlist', !this.additem)
       // console.log(this.images[0].path)
       let data = {
         barcode: this.barcode,
@@ -358,6 +359,7 @@ export default {
     },
     cancel () {
       this.$store.set('additem', !this.additem)
+      this.$store.set('showlist', !this.additem)
       this.images = []
       this.$store.set('reindex', false)
     },

@@ -18,10 +18,12 @@ const state = {
     token: ''
   },
   additem: true,
+  showlist: true,
   reindex: false,
   name: 'World',
   tab: '32-36',
   carts: [],
+  acards: [],
   auth: {
     loggedIn: false
   }

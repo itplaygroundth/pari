@@ -22,10 +22,10 @@
                     <div>
                       <div class="headline  black--text">รุ่น {{card.title}}</div>
                       <div class="headline  black--text"></div>
-                      <div class="headline  black--text">ขนาด {{card.size}}</div>
+                      <div class="headline  black--text">ขนาด {{card.mysize}}</div>
                       <div class="headline  black--text"><br></div>
                       <div class="headline  black--text">สี</div>
-                      <div :style="`width:50px;height:30px;border:1px;background-color:${card.color}`"></div>
+                      <div :style="`width:50px;height:30px;border:1px;background-color:${card.colorcode}`"></div>
                     </div>
                   </v-card-title>
                 </v-flex>
@@ -35,7 +35,7 @@
                 <div class="headline  black--text">ราคา {{ $n(card.price,'currency') }}  </div>
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
-                <div class="headline  black--text">เหลือ {{ card.stockqty }}   ตัว</div>
+                <div class="headline  black--text">เหลือ {{ stock(card) }}   ตัว</div>
                 <v-spacer></v-spacer>
                 <div><v-icon color="red" @click="addcart(card)">fas fa-cart-plus</v-icon></div>
 
@@ -128,10 +128,12 @@ export default {
     }
   },
   computed: {
-    carts: sync('carts')
+    carts: sync('carts'),
+    acards: sync('acards')
   },
   created () {
     this.initCard()
+    this.$store.set('acards', this.all)
   },
   methods: {
     initCard () {
@@ -149,8 +151,8 @@ export default {
               price: key.price,
               stockqty: key.stockqty,
               flex: key.flex,
-              size: key.mysize,
-              color: key.colorcode
+              mysize: key.mysize,
+              colorcode: key.colorcode
             })
           }
         })
@@ -165,13 +167,20 @@ export default {
       // return require('../static/img/product' + img)
     },
     addcart (item) {
-      this.selected.push(item)
-      this.$store.set('carts', this.selected)
-      // var cart = []
-      // cart.push(() => {
-      //   return this.cards.filter(v => v.code === code)
-      // })
-      // this.$store.state.carts.push(item)
+      if (this.stock(item) > 0) {
+        this.selected.push(item)
+        this.$store.set('carts', this.selected)
+      }
+    },
+    stock (item) {
+      var qty = this.$store.state.carts.filter(value => {
+        if (value.code === item.code && value.colorcode === item.colorcode) {
+          return value
+        }
+      }).map(res => {
+        return res.stockqty
+      })
+      return qty.length > 0 ? item.stockqty - qty.length : item.stockqty
     }
   }
 }

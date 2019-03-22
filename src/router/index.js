@@ -7,6 +7,7 @@ import Add from '@/components/Add'
 import Show from '@/components/Show'
 import Admin from '@/components/Admin'
 import List from '@/components/List'
+import Cart from '@/components/Cart'
 import Axios from 'axios'
 
 Vue.use(Router)
@@ -87,6 +88,11 @@ export default new Router({
       path: '/Show',
       name: 'show',
       component: Show
+    },
+    {
+      path: '/Cart',
+      name: 'cart',
+      component: Cart
     }
   ]
 })
